@@ -1,0 +1,39 @@
+uv run python -m webhook_tools.negative
+
+[1/6] state regressed to an older event
+    damaged   FAIL  state table equals the state computed from ground truth: 1 entities differ: payment#pay_00c84bbeaa02 (version, status)
+    repaired  PASS  state table equals the state computed from ground truth
+    => caught, clean after repair
+
+[2/6] archived payload altered by one byte
+    damaged   FAIL  every accepted request is archived, byte-identical: 0 missing: ; 1 altered: raw/vendor=callwright/dt=2026-11-16/hour=23/00028135a9f446c3c15babbd492db40559a50913847c21a0f04feebc5c45feac.body
+    damaged   FAIL  the archive holds each object exactly once and nothing else: 1 keys with more than one version: raw/vendor=callwright/dt=2026-11-16/hour=23/00028135a9f446c3c15babbd492db40559a50913847c21a0f04feebc5c45feac.body;
+    repaired  PASS  every accepted request is archived, byte-identical
+    repaired  PASS  the archive holds each object exactly once and nothing else
+    => caught, clean after repair
+
+[3/6] archived payload deleted
+    damaged   FAIL  every accepted request is archived, byte-identical: 1 missing: raw/vendor=callwright/dt=2026-11-16/hour=23/00161820a7434238db5d5d37502325c1f8c60c2bd8b729ad41f83d3a0a876a93.body; 0 altered:
+    damaged   FAIL  the archive holds each object exactly once and nothing else: 0 keys with more than one version: ; 1 delete markers
+    repaired  PASS  every accepted request is archived, byte-identical
+    repaired  PASS  the archive holds each object exactly once and nothing else
+    => caught, clean after repair
+
+[4/6] rejected request planted in the archive
+    damaged   FAIL  the archive holds each object exactly once and nothing else: archive objects: 1 unexpected: raw/vendor=callwright/dt=2026-01-01/hour=00/02c078659ee148f45115d1af321cb5be09bed0664d1bbd98f4d49bd0548c24e9.body, one
+    damaged   FAIL  no rejected request is in the archive: 153 rejected requests, 153 distinct bodies, 1 found in the archive
+    repaired  PASS  the archive holds each object exactly once and nothing else
+    repaired  PASS  no rejected request is in the archive
+    => caught, clean after repair
+
+[5/6] idempotency record removed
+    damaged   FAIL  idempotency ledger holds exactly the genuine events: ledger records: 1 missing: callwright#000ee430-ef44-4db0-ae6e-876db06d7be1 (2515 applied, 485 stale)
+    repaired  PASS  idempotency ledger holds exactly the genuine events
+    => caught, clean after repair
+
+[6/6] healthy event sent to the DLQ
+    damaged   FAIL  the DLQ contains exactly the poison messages: 4 messages for 4 payloads; expected 3 payloads x 1
+    repaired  PASS  the DLQ contains exactly the poison messages
+    => caught, clean after repair
+
+negative: 6 of 6 corruptions were caught and repaired

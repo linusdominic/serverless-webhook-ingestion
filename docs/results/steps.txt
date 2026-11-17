@@ -1,0 +1,19 @@
+00-down exit=0 seconds=3
+01-up exit=0 seconds=1
+02-deploy exit=0 seconds=111
+03-demo exit=0 seconds=212
+04-verify exit=0 seconds=10
+05-negative exit=0 seconds=22
+06-replay exit=0 seconds=168
+07-verify-after-replay exit=0 seconds=10
+08-replay-forced exit=0 seconds=259
+09-verify-after-forced-replay exit=0 seconds=10
+10-status exit=0 seconds=1
+11-integration exit=0 seconds=8
+20-unit-tests exit=0 seconds=5
+21-lint exit=0 seconds=0
+22-tf-fmt-validate exit=0 seconds=11
+23-tflint exit=0 seconds=4
+24-checkov exit=0 seconds=7
+25-package-check exit=0 seconds=1
+DONE

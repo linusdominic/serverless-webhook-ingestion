@@ -1,0 +1,5 @@
+core.zip            38,238 bytes  sha256 3c411c2dd48d7d6d  (any)
+compactor.zip   32,387,941 bytes  sha256 eec3d524a63440d2  (arm64)
+...
+Apply complete! Resources: 100 added, 0 changed, 0 destroyed.
+seed: 4 secret value(s) written, 0 already present

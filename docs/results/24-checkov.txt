@@ -1,0 +1,4 @@
+./scripts/security_scan.sh
+terraform scan results:
+
+Passed checks: 533, Failed checks: 0, Skipped checks: 68

@@ -1,0 +1,29 @@
+uv run python -m webhook_tools.replay --all --ignore-idempotency --assert-unchanged
+replay: 3072 archived payloads for callwright, meridianpay, veritybureau (all time)
+replay: enqueued 3072 pointers as replay-03cd1306da7d in 0.3s
+settle:    10s  queue 2722 visible, 0 in flight; dlq 6/9
+settle:    20s  queue 2377 visible, 20 in flight; dlq 6/9
+settle:    30s  queue 2047 visible, 0 in flight; dlq 6/9
+settle:    41s  queue 1702 visible, 22 in flight; dlq 6/9
+settle:    51s  queue 1377 visible, 22 in flight; dlq 6/9
+settle:    61s  queue 1038 visible, 13 in flight; dlq 6/9
+settle:    71s  queue 704 visible, 23 in flight; dlq 6/9
+settle:    81s  queue 374 visible, 28 in flight; dlq 6/9
+settle:    91s  queue 42 visible, 13 in flight; dlq 6/9
+settle:   101s  queue 0 visible, 3 in flight; dlq 6/9
+settle:   112s  queue 0 visible, 2 in flight; dlq 7/9
+settle:   122s  queue 0 visible, 1 in flight; dlq 8/9
+settle:   132s  queue 0 visible, 1 in flight; dlq 8/9
+replay: queue drained after 135.9s
+replay: scheduled pipeline execution SUCCEEDED after the replay
+replay: unchanged             state table                        13c2abc8c8c1b119 -> 13c2abc8c8c1b119
+replay: unchanged             idempotency ledger                 9c0a7336b900c3b3 -> 9c0a7336b900c3b3
+replay: unchanged             raw archive (all versions)         88fedb12ddd6712f -> 88fedb12ddd6712f
+replay: unchanged             quarantine (all versions)          99c001b03a4a8959 -> 99c001b03a4a8959
+replay: unchanged             compacted rows                     976a6340040d8ac3 -> 976a6340040d8ac3
+replay: rewritten (expected)  landing objects (all versions)     2092d492c2f1138f -> 5fbb302fb953a3ea
+replay: rewritten (expected)  compacted Parquet (all versions)   6fc3b5b7bc74ca64 -> 3180772285cdd6a1
+replay: 3072 payloads reprocessed, nothing changed
+uv run python -m webhook_tools.settle --replay
+settle: queue drained after 2.0s; 9 message(s) in the DLQ
+settle: scheduled pipeline execution SUCCEEDED in 1.88s (waited 66.8s for the schedule): Init > Compact > AnythingLanded > UpdateCatalog > MoreToCompact > DataQuality > Reconcile > Done

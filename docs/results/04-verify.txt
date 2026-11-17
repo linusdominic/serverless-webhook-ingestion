@@ -1,0 +1,22 @@
+uv run python -m webhook_tools.verify
+PASS  every response matches the plan                                                 3502 requests: 3349 x 202, 150 x 401, 2 x 404, 1 x 413
+PASS  every accepted request is archived, byte-identical                              3349 accepted requests -> 3072 distinct objects, 1,018,605 bytes compared
+PASS  the archive holds each object exactly once and nothing else                     3072 archive objects, one version each, 277 re-deliveries absorbed
+PASS  no rejected request is in the archive                                           153 rejected requests, 153 distinct bodies, 0 found in the archive
+PASS  archived objects carry digest, signature headers and SSE-KMS under the raw key  3072 objects checked
+PASS  the ingest queue is empty                                                       0 visible, 0 in flight
+PASS  state table equals the state computed from ground truth                         1220 entities, every attribute equal (3001 events folded)
+PASS  idempotency ledger holds exactly the genuine events                             3001 ledger records (2516 applied, 485 stale)
+PASS  the DLQ contains exactly the poison messages                                    3 messages for 3 payloads; expected 3 payloads x 1
+PASS  quarantine holds exactly the unparseable and unknown payloads                   68 quarantine pointers (23 malformed_json, 15 schema_invalid, 30 unknown_event_type)
+PASS  landing zone covers every genuine event and no other                            3001 distinct events in 600 objects (3001 records including duplicates)
+PASS  compacted Parquet has one row per genuine event, content equal                  3001 events in 6 Parquet files, every column equal
+PASS  Glue catalog has every compacted partition registered                           6 partitions
+PASS  Athena counts through the Glue catalog reconcile with accepted unique events    expected {'callwright': 1097, 'meridianpay': 839, 'veritybureau': 1065}; the events table, counted by Athena, has {'callwright': 1097, 'meridianpay': 839, 'veritybureau': 1065}
+PASS  the scheduled curation pipeline ran after the queue drained and succeeded       1 execution(s) since drain, 0 failed; states Init > Compact > AnythingLanded > UpdateCatalog > MoreToCompact > DataQuality > Reconcile > Done; 7 data-quality checks, 0 violations
+PASS  no raw PII outside the raw bucket                                               10,387,800 characters searched in 7 places
+PASS  no secret value in logs, function configuration or queues                       7 secret values, 13 places searched
+PASS  the DLQ alarm fired and the notification reached a subscriber                   alarm state ALARM, 1 ALARM notification(s) delivered via SNS
+
+18 of 18 invariants hold
+verified in 9.1s

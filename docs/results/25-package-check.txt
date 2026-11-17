@@ -1,0 +1,1 @@
+compactor.zip loads: python 3.12.16, pyarrow 26.0.1, aarch64

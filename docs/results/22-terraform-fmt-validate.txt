@@ -1,0 +1,11 @@
+docker compose run --rm -T -w /workspace/infra terraform fmt -check -recursive -diff
+uv run python scripts/build_lambdas.py --arch arm64
+core.zip            38,238 bytes  sha256 3c411c2dd48d7d6d  (any)
+compactor.zip   32,387,941 bytes  sha256 eec3d524a63440d2  (arm64)
+docker compose run --rm -T -w /workspace/infra/envs/local terraform init -backend=false -input=false >/dev/null
+docker compose run --rm -T -w /workspace/infra/envs/local terraform validate
+Success! The configuration is valid.
+
+docker compose run --rm -T -w /workspace/infra/envs/aws terraform init -backend=false -input=false >/dev/null
+docker compose run --rm -T -w /workspace/infra/envs/aws terraform validate
+Success! The configuration is valid.

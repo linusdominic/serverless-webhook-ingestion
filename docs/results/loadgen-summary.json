@@ -1,0 +1,45 @@
+{
+  "base_time": "2026-11-16T23:48:05.000Z",
+  "by_category": {
+    "body_too_large": 1,
+    "duplicate_exact": 150,
+    "duplicate_resigned": 120,
+    "invalid_signature": 90,
+    "malformed_json": 30,
+    "poison": 3,
+    "schema_invalid": 15,
+    "stale_timestamp": 60,
+    "unknown_event_type": 30,
+    "unknown_vendor": 2,
+    "valid": 3001
+  },
+  "by_status": {
+    "202": 3349,
+    "401": 150,
+    "404": 2,
+    "413": 1
+  },
+  "concurrency": 16,
+  "deliveries": 3502,
+  "entities_delivered_out_of_order": 296,
+  "events_requested": 3000,
+  "latency_ms_accepted": {
+    "max": 3592.68,
+    "p50": 42.0,
+    "p95": 1154.66,
+    "p99": 1897.09
+  },
+  "latency_ms_all": {
+    "max": 3592.68,
+    "p50": 41.14,
+    "p95": 1143.67,
+    "p99": 1879.3
+  },
+  "plan_fingerprint": "3a70aa1e8952a002b89d95ebb6c36b0c0ad889d7169deba00ef81860ee1649ee",
+  "requests_per_second": 107.2,
+  "responses_not_as_expected": 0,
+  "retried_requests": 0,
+  "seed": 20261117,
+  "started_at": "2026-11-16T23:48:05.160Z",
+  "wall_seconds": 32.66
+}

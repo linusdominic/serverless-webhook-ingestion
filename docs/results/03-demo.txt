@@ -1,0 +1,27 @@
+uv run python -m webhook_tools.loadgen --seed 20261117 --events 3000 --concurrency 16
+loadgen: seed 20261117, 3000 events requested, 3502 deliveries, concurrency 16
+loadgen: plan fingerprint 3a70aa1e8952a002 (seed + event count + base time 2026-11-16T23:48:05.000Z)
+loadgen: sent 3502 in 32.7s = 107.2 req/s
+loadgen: by category   {'body_too_large': 1, 'duplicate_exact': 150, 'duplicate_resigned': 120, 'invalid_signature': 90, 'malformed_json': 30, 'poison': 3, 'schema_invalid': 15, 'stale_timestamp': 60, 'unknown_event_type': 30, 'unknown_vendor': 2, 'valid': 3001}
+loadgen: by status     {202: 3349, 401: 150, 404: 2, 413: 1}
+loadgen: latency of accepted requests  p50 42.0 ms  p95 1154.66 ms  p99 1897.09 ms  max 3592.68 ms
+loadgen: 0 request(s) needed a retry; 0 response(s) differed from the plan
+uv run python -m webhook_tools.settle
+settle:    10s  queue 2514 visible, 10 in flight; dlq 0/3
+settle:    20s  queue 2179 visible, 20 in flight; dlq 0/3
+settle:    30s  queue 1839 visible, 10 in flight; dlq 0/3
+settle:    41s  queue 1514 visible, 10 in flight; dlq 0/3
+settle:    51s  queue 1174 visible, 26 in flight; dlq 0/3
+settle:    61s  queue 839 visible, 12 in flight; dlq 0/3
+settle:    71s  queue 504 visible, 22 in flight; dlq 0/3
+settle:    81s  queue 176 visible, 2 in flight; dlq 0/3
+settle:    91s  queue 0 visible, 3 in flight; dlq 0/3
+settle:   101s  queue 0 visible, 3 in flight; dlq 0/3
+settle:   111s  queue 0 visible, 3 in flight; dlq 0/3
+settle:   122s  queue 0 visible, 3 in flight; dlq 0/3
+settle:   132s  queue 0 visible, 1 in flight; dlq 2/3
+settle:   142s  queue 0 visible, 1 in flight; dlq 2/3
+settle:   152s  queue 0 visible, 1 in flight; dlq 2/3
+settle:   162s  queue 0 visible, 0 in flight; dlq 3/3
+settle: queue drained after 163.2s; 3 message(s) in the DLQ
+settle: scheduled pipeline execution SUCCEEDED in 1.87s (waited 14.3s for the schedule): Init > Compact > AnythingLanded > UpdateCatalog > MoreToCompact > DataQuality > Reconcile > Done

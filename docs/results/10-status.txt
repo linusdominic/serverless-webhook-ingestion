@@ -1,0 +1,29 @@
+queues (visible / in flight)
+  ingest            0 / 0
+  dead-letter       9 / 0
+  alert sink        9 / 0
+stores
+  entity state           1220 items
+  idempotency ledger     3001 items
+  raw archive            3072 objects
+  landing                 838 objects
+  compacted Parquet         6 objects
+  quarantine               68 objects
+curation pipeline, last five executions
+  2026-11-16 23:59:22Z  SUCCEEDED
+  2026-11-16 23:58:12Z  SUCCEEDED
+  2026-11-16 23:57:02Z  SUCCEEDED
+  2026-11-16 23:56:02Z  SUCCEEDED
+  2026-11-16 23:54:52Z  SUCCEEDED
+alarms
+  OK                 webhook-ingestion-local-api-5xx  (AWS/ApiGateway)
+  INSUFFICIENT_DATA  webhook-ingestion-local-curation-pipeline-failed  (metric math)
+  ALARM              webhook-ingestion-local-dlq-not-empty  (AWS/SQS)
+  INSUFFICIENT_DATA  webhook-ingestion-local-processor-error-rate  (metric math)
+  OK                 webhook-ingestion-local-queue-age  (AWS/SQS)
+  INSUFFICIENT_DATA  webhook-ingestion-local-receiver-error-rate  (metric math)
+  OK                 webhook-ingestion-local-signature-rejections-callwright  (WebhookIngestion)
+  OK                 webhook-ingestion-local-signature-rejections-meridianpay  (WebhookIngestion)
+  OK                 webhook-ingestion-local-signature-rejections-veritybureau  (WebhookIngestion)
+metric namespaces with data
+  AWS/SQS              27 metrics
