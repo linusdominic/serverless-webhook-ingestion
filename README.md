@@ -562,13 +562,14 @@ ledger written last, and the verifier.
 - **Single region, one copy of the archive.** No cross-region replication and no
   Object Lock.
 - **No custom domain, WAF or code signing.**
-- **The CI workflow has not run on GitHub**, and neither has the pre-commit
-  configuration. `.github/workflows/ci.yml` runs the same Makefile targets I ran
-  locally, on x86_64 runners, where the compactor package is built for a different
-  architecture than on my machine. I built the x86_64 package here (35,299,905
-  bytes, within Lambda's limit) but could not import-check it: Python under QEMU
-  emulation on arm64 died with a segmentation fault, which says nothing either way
-  about the package. Until CI has run, the x86_64 path is unverified.
+- **The pre-commit configuration has never run.** The CI workflow has: it runs the
+  same Makefile targets I ran locally, on GitHub's x86_64 runners, where the
+  compactor package is built for a different architecture than on my machine. The
+  first run on `main` passed all three jobs, including the package import check and
+  the full deploy, demo, verify, negative test and both replays (about 14 minutes).
+  That is the only evidence for the x86_64 path; locally I could build that package
+  but not import-check it, because Python under QEMU emulation on arm64 died with a
+  segmentation fault.
 - **The replay and redrive tools are emulator-only.** They refuse any endpoint that is
   not loopback. Operating a real deployment needs the same logic with real
   credentials, which is not in this repository.
