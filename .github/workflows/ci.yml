@@ -1,0 +1,96 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  # No job has AWS credentials. Every step that speaks an AWS protocol goes through
+  # the Makefile, which pins dummy keys and a loopback endpoint and refuses to run
+  # otherwise (scripts/preflight.sh).
+  UV_VERSION: "0.13.6"
+
+jobs:
+  static:
+    name: lint, types, unit tests
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.3.3
+        with:
+          version: ${{ env.UV_VERSION }}
+          enable-cache: true
+      - run: uv sync --frozen
+      - run: make lint
+      - run: make test
+
+  terraform:
+    name: terraform fmt, validate, tflint, checkov
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.3.3
+        with:
+          version: ${{ env.UV_VERSION }}
+          enable-cache: true
+      - run: uv sync --frozen
+      - run: make tf-fmt
+      - run: make tf-validate
+      - run: make tf-lint
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+      - run: make security-scan
+
+  end-to-end:
+    name: deploy to the emulator and prove the invariants
+    runs-on: ubuntu-24.04
+    needs: [static, terraform]
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.3.3
+        with:
+          version: ${{ env.UV_VERSION }}
+          enable-cache: true
+      - run: uv sync --frozen
+
+      # Hosted runners are x86_64. The Makefile builds compactor.zip for the Docker
+      # host's architecture, which is what the emulator runs functions on.
+      - run: make build
+      - run: ./scripts/check_package.sh
+
+      - run: make up
+      - run: make deploy
+      - run: make demo
+      - run: make verify
+      - run: make negative-test
+      - run: make replay
+      - run: make verify
+      - run: make replay-forced
+      - run: make verify
+      - run: make test-integration
+
+      - name: Keep the run's evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: run-evidence
+          path: |
+            .run/*.json
+            build/manifest.json
+          if-no-files-found: ignore
+
+      - name: Emulator logs on failure
+        if: failure()
+        run: docker compose logs --no-color --tail 300 floci
+
+      - run: make down
+        if: always()
