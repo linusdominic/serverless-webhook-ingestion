@@ -1,0 +1,17 @@
+# Copy to terraform.tfvars (git-ignored) and fill in. Nothing here is a secret.
+
+aws_account_id = "123456789012"
+region         = "us-east-1"
+environment    = "dev"
+
+alert_email_addresses = ["data-platform-oncall@example.com"]
+
+raw_admin_principal_arns = [
+  "arn:aws:iam::123456789012:role/terraform-deploy",
+  "arn:aws:iam::123456789012:role/break-glass-admin",
+]
+raw_operator_principal_arns = [
+  "arn:aws:iam::123456789012:role/data-platform-oncall",
+]
+
+projection_start_date = "2026-11-01"
