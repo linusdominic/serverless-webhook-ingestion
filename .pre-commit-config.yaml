@@ -1,0 +1,44 @@
+# pre-commit install
+# Runs the same checks as `make lint` and `make tf-fmt`, on changed files only.
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: check-yaml
+      - id: check-json
+      - id: check-added-large-files
+        args: ["--maxkb=500"]
+      - id: detect-private-key
+
+  - repo: local
+    hooks:
+      - id: ruff-check
+        name: ruff check
+        entry: uv run ruff check --fix
+        language: system
+        types: [python]
+      - id: ruff-format
+        name: ruff format
+        entry: uv run ruff format
+        language: system
+        types: [python]
+      - id: mypy
+        name: mypy (Lambda code)
+        entry: uv run mypy
+        language: system
+        pass_filenames: false
+        files: ^src/webhook_platform/
+      - id: unit-tests
+        name: unit tests
+        entry: uv run pytest -q
+        language: system
+        pass_filenames: false
+        types: [python]
+      - id: terraform-fmt
+        name: terraform fmt
+        entry: docker compose run --rm -T -w /workspace/infra terraform fmt -recursive
+        language: system
+        pass_filenames: false
+        files: \.tf$

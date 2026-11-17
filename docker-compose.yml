@@ -1,0 +1,61 @@
+# Local AWS emulator and a pinned Terraform, on a private network.
+#
+# Nothing here has AWS credentials. The emulator accepts any non-empty key pair and
+# the Terraform container is given the literal pair test/test, an emulator endpoint
+# and empty credential files. ~/.aws is not mounted anywhere.
+
+name: webhook-ingestion
+
+services:
+  floci:
+    image: floci/floci:2.5.0
+    ports:
+      # Loopback only, and not the emulator's default 4566.
+      - "127.0.0.1:${EMULATOR_PORT:-45660}:4566"
+    environment:
+      FLOCI_HOSTNAME: floci
+      FLOCI_STORAGE_MODE: memory
+      FLOCI_DEFAULT_REGION: us-east-1
+      # Lambda functions and the Athena engine run as sibling containers. Put them
+      # on this compose network so they can reach the emulator by service name.
+      FLOCI_SERVICES_DOCKER_NETWORK: webhook-ingestion_default
+      FLOCI_SERVICES_LAMBDA_DOCKER_NETWORK: webhook-ingestion_default
+      # Floci's default for the Athena engine is the moving tag "latest".
+      FLOCI_SERVICES_DUCK_DEFAULT_IMAGE: floci/floci-duck:0.4.1
+      FLOCI_SERVICES_LAMBDA_POLL_INTERVAL_MS: "250"
+    volumes:
+      # Required: the emulator starts one container per Lambda execution environment.
+      - /var/run/docker.sock:/var/run/docker.sock
+    mem_limit: 1g
+    cpus: 4
+    healthcheck:
+      # The image has no curl, wget or grep; bash can open the socket itself.
+      test: ["CMD", "bash", "-c", "exec 3<>/dev/tcp/127.0.0.1/4566 && printf 'GET /_floci/health HTTP/1.0\\r\\n\\r\\n' >&3 && read -r line <&3 && [[ $$line == *200* ]]"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+
+  terraform:
+    image: hashicorp/terraform:1.17.2
+    profiles: ["tools"]
+    working_dir: /workspace/infra/envs/local
+    volumes:
+      - .:/workspace
+      - terraform-plugins:/plugin-cache
+    environment:
+      AWS_ACCESS_KEY_ID: test
+      AWS_SECRET_ACCESS_KEY: test
+      AWS_REGION: us-east-1
+      AWS_DEFAULT_REGION: us-east-1
+      AWS_ENDPOINT_URL: http://floci:4566
+      AWS_SHARED_CREDENTIALS_FILE: /dev/null
+      AWS_CONFIG_FILE: /dev/null
+      AWS_EC2_METADATA_DISABLED: "true"
+      TF_IN_AUTOMATION: "1"
+      TF_INPUT: "0"
+      TF_PLUGIN_CACHE_DIR: /plugin-cache
+      TF_PLUGIN_CACHE_MAY_BREAK_DEPENDENCY_LOCK_FILE: "1"
+    mem_limit: 1g
+
+volumes:
+  terraform-plugins:
