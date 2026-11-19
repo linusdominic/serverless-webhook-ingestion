@@ -53,6 +53,14 @@ the claims backed by a test harness that tries to break them.
 
 ## Architecture
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/architecture-dark.svg">
+  <img alt="Architecture: vendors POST to an API Gateway HTTP API; the receiver Lambda verifies the HMAC, writes the exact body to the S3 raw archive with a create-only put, then sends a pointer through SQS. The processor Lambda reads the body, normalises it and tokenises PII, applies a forward-only conditional update to DynamoDB state, writes the landing zone and records the idempotency ledger last; unparseable bodies go to quarantine and poison messages to the DLQ. A Step Functions pipeline compacts landing objects to Parquet, registers Glue partitions, runs data-quality SQL in Athena and reconciles against the ledger." src="docs/img/architecture-light.svg">
+</picture>
+
+<details>
+<summary>The same diagram as text, with more detail</summary>
+
 ```mermaid
 flowchart LR
     V[Vendors] -->|POST /webhooks/vendor| API[API Gateway<br/>HTTP API]
@@ -93,6 +101,8 @@ flowchart LR
     DLQ -.-> CW
     Q -.-> CW
 ```
+
+</details>
 
 One request, start to finish:
 
@@ -156,6 +166,11 @@ Other targets: `make replay-forced`, `make status`, `make redrive`, `make test`,
   with no credential files mounted.
 
 ## What the demo proves
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/verification-dark.svg">
+  <img alt="What the recorded run showed, on the Floci emulator: 18 of 18 invariants hold after the demo and again after both replays; 6 of 6 deliberate corruptions caught; 3,072 archived payloads replayed with nothing changed; 3,502 deliveries sent, 3,349 accepted and 153 rejected, 0 responses differing from the plan." src="docs/img/verification-light.svg">
+</picture>
 
 `make demo` sends a seeded, deterministic workload through the real HTTP endpoint:
 3,001 genuine events from three vendors with different signing schemes, wrapped

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="236" viewBox="0 0 960 236" role="img" aria-label="What the recorded run showed, on the Floci emulator: 18 of 18 invariants hold after the demo and again after both replays; 6 of 6 deliberate corruptions caught; 3,072 archived payloads replayed with nothing changed; 3,502 deliveries sent, 3,349 accepted and 153 rejected, 0 responses differing from the plan.">
+  <title>What the recorded run showed, on the Floci emulator: 18 of 18 invariants hold after the demo and again after both replays; 6 of 6 deliberate corruptions caught; 3,072 archived payloads replayed with nothing changed; 3,502 deliveries sent, 3,349 accepted and 153 rejected, 0 responses differing from the plan.</title>
+  <rect x="0.5" y="0.5" width="959" height="235" rx="12" fill="#0d1117" stroke="#30363d"/>
+  <text x="28.0" y="40.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="17" font-weight="600" fill="#f0f6fc" text-anchor="start">What the recorded run showed</text>
+  <text x="28.0" y="60.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#9198a1" text-anchor="start">One run on the Floci 2.5.0 emulator on a laptop, 2026-11-16. Says nothing about real AWS.</text>
+  <rect x="28.0" y="82.0" width="22" height="4" rx="2" fill="#199e70"/>
+  <text x="28.0" y="120.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="32" font-weight="600" fill="#f0f6fc" text-anchor="start">18 / 18</text>
+  <text x="28.0" y="143.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#9198a1" text-anchor="start">invariants hold after the demo</text>
+  <text x="28.0" y="164.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#757e8a" text-anchor="start">and again after both replays</text>
+  <line x1="254.0" y1="80.0" x2="254.0" y2="179.0" stroke="#30363d"/>
+  <rect x="274.0" y="82.0" width="22" height="4" rx="2" fill="#d95926"/>
+  <text x="274.0" y="120.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="32" font-weight="600" fill="#f0f6fc" text-anchor="start">6 / 6</text>
+  <text x="274.0" y="143.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#9198a1" text-anchor="start">deliberate corruptions caught</text>
+  <text x="274.0" y="162.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#9198a1" text-anchor="start">by the verifier</text>
+  <text x="274.0" y="183.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#757e8a" text-anchor="start">each clean again after repair</text>
+  <line x1="480.0" y1="80.0" x2="480.0" y2="179.0" stroke="#30363d"/>
+  <rect x="500.0" y="82.0" width="22" height="4" rx="2" fill="#3987e5"/>
+  <text x="500.0" y="120.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="32" font-weight="600" fill="#f0f6fc" text-anchor="start">3,072</text>
+  <text x="500.0" y="143.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#9198a1" text-anchor="start">archived payloads replayed,</text>
+  <text x="500.0" y="162.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#9198a1" text-anchor="start">nothing changed</text>
+  <text x="500.0" y="183.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#757e8a" text-anchor="start">7 store fingerprints compared</text>
+  <line x1="706.0" y1="80.0" x2="706.0" y2="179.0" stroke="#30363d"/>
+  <rect x="726.0" y="82.0" width="22" height="4" rx="2" fill="#4d5560"/>
+  <text x="726.0" y="120.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="32" font-weight="600" fill="#f0f6fc" text-anchor="start">3,502</text>
+  <text x="726.0" y="143.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#9198a1" text-anchor="start">deliveries sent, 153 rejected</text>
+  <text x="726.0" y="164.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#757e8a" text-anchor="start">every response matched the plan</text>
+  <text x="28.0" y="214.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#757e8a" text-anchor="start">Source: docs/results/03-demo.txt, 04-verify.txt, 05-negative-test.txt, 06-replay.txt to 09-verify-after-forced-replay.txt. One recorded run.</text>
+</svg>
