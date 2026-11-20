@@ -125,6 +125,9 @@ lint: ## ruff (lint and format check) and mypy
 	uv run ruff format --check .
 	uv run mypy
 
+typecheck: ## mypy only (also part of lint)
+	uv run mypy
+
 fmt: ## Format Python and Terraform
 	uv run ruff format .
 	uv run ruff check --fix .

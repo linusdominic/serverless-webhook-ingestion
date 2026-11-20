@@ -150,7 +150,19 @@ named `webhook-ingestion-tflint-plugins` if you ran `make tf-lint`.
 
 Other targets: `make replay-forced`, `make status`, `make redrive`, `make test`,
 `make test-integration`, `make lint`, `make tf-fmt`, `make tf-validate`, `make tf-lint`,
-`make security-scan`, `make help`.
+`make security-scan`, `make help`, and these:
+
+- `make build`: build the Lambda packages (core.zip, compactor.zip). `make deploy` runs it.
+- `make seed`: write generated signing keys and the PII pepper into the emulator's Secrets
+  Manager. `make deploy` runs it.
+- `make destroy`: `terraform destroy` against the emulator.
+- `make logs`: tail the emulator logs.
+- `make preflight`: check that nothing can reach real AWS. Every target that talks to the
+  emulator runs it first.
+- `make fmt`: format Python and Terraform (rewrites files).
+- `make typecheck`: mypy only (also part of `make lint`).
+- `make check`: everything that does not need the emulator (`lint`, `test`, `tf-fmt`,
+  `tf-validate`, `tf-lint`, `security-scan`).
 
 **It cannot reach real AWS**, even on a machine with real credentials configured:
 
